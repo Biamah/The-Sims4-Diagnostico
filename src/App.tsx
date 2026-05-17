@@ -23,15 +23,21 @@ function App() {
 
   const results = diseases
     .map((disease) => {
-      const matches = disease.symptoms.filter((symptom) =>
-        selectedSymptoms.includes(symptom),
-      ).length;
+      const matchingSymptoms = selectedSymptoms.filter((symptom) =>
+        disease.symptoms.includes(symptom),
+      );
 
-      const percentage = (matches / disease.symptoms.length) * 100;
+      const invalidSymptoms = selectedSymptoms.filter(
+        (symptom) => !disease.symptoms.includes(symptom),
+      );
+
+      const percentage =
+        (matchingSymptoms.length / disease.symptoms.length) * 100;
 
       return {
         ...disease,
         percentage,
+        invalidSymptoms,
       };
     })
     .sort((a, b) => b.percentage - a.percentage);
@@ -41,7 +47,7 @@ function App() {
   }
 
   return (
-    <main className="min-h-screen bg-sky-100 p-4">
+    <main className="min-h-screen bg-sky-100 p-4 lg:px-20 lg:py-10">
       <h1 className="text-3xl font-bold">Sim Diagnóstico</h1>
 
       <button
@@ -71,6 +77,7 @@ function App() {
               name={result.name}
               percentage={result.percentage}
               treatment={result.treatment}
+              invalidSymptoms={result.invalidSymptoms}
             />
           ))}
       </div>

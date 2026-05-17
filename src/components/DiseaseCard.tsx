@@ -4,9 +4,15 @@ type Props = {
   name: string;
   percentage: number;
   treatment: string;
+  invalidSymptoms: string[];
 };
 
-export function DiseaseCard({ name, percentage, treatment }: Props) {
+export function DiseaseCard({
+  name,
+  percentage,
+  treatment,
+  invalidSymptoms,
+}: Props) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -36,6 +42,27 @@ export function DiseaseCard({ name, percentage, treatment }: Props) {
       </div>
 
       <p className="text-sm text-gray-500 mt-3">Tratamento: {treatment}</p>
+
+      <div>
+        {invalidSymptoms.length > 0 && (
+          <div className="mt-3">
+            <p className="text-sm text-red-500 font-medium">
+              Sintomas não compativeis:
+            </p>
+
+            <div className="flex flex-wrap gap-2 mt-2">
+              {invalidSymptoms.map((symptom) => (
+                <span
+                  key={symptom}
+                  className="bg-red-100 text-red-500 text-xs px-2 py-1 rounded-full"
+                >
+                  {symptom}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
     </motion.div>
   );
 }
