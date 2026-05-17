@@ -2,7 +2,6 @@ import { useState } from "react";
 import "./App.css";
 import { SymptomSelector } from "./components/SymptomSelector";
 import { diseases } from "./data/diseases";
-import { diagnose } from "./utils/diagnose";
 import { DiseaseCard } from "./components/DiseaseCard";
 
 function App() {
